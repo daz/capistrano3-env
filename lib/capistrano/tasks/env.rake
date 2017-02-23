@@ -14,7 +14,7 @@ namespace :env do
        config = { args[:key] => config[args[:key]] }
      end
      config.each do |key, val|
-       puts "#{key}: #{val}"
+       puts "#{key}=#{val}"
      end
     end
   end
@@ -78,14 +78,14 @@ module Capistrano
 
         def hashify(string)
           values = string.split("\n").map do |line|
-            line.split(/:|\n/, 2).map(&:strip)
+            line.split("=", 2).map(&:strip)
           end
           values.reject(&:empty?)
           Hash[values]
         end
 
         def stringify(values)
-          values.map { |key, val| "#{key}: #{val}" }.join("\n")
+          values.map { |key, val| "#{key}=#{val}" }.join("\n")
         end
       end
     end
